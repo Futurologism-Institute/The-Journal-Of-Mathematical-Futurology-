@@ -1,0 +1,236 @@
+FuturLang: A Computational Theory of
+Mathematical States, Graphs, and
+Prediction
+A FuturLang-Theoretic Reconstruction of Graphs, Principal Minors, and
+Eigenvalue Problems
+Wenitte Apiou
+Abstract
+This work develops a FuturLang-theoretic interpretation of several problems in linear algebra,
+probability, spectral graph theory, graph geometry, and numerical computation.
+The central principle of FuturLang is that a mathematical object should be understood not only
+by its present representation, but by the information required to distinguish, reconstruct,
+transform, and predict its possible states. Under this interpretation, a matrix is a state-bearing
+object; a graph is a relational state structure; a principal minor is an observable projection of a
+hidden state; an eigenvalue is a spectral invariant governing a system's modes of
+transformation; and an algorithm is a formally specified transition procedure between states of
+knowledge.
+The reconstruction problem therefore becomes fundamental:
+Given partial observations of a mathematical state, what information is sufficient to
+reconstruct the state, what information is fundamentally unavailable, and how
+efficiently can the reconstruction be performed?
+This perspective provides a common language for several apparently different mathematical
+problems.
+Determinantal point processes become probabilistic state-observation systems in which
+principal minors encode observable probabilities. Principal-minor assignment becomes a
+reconstruction problem: the hidden matrix must be inferred from a finite collection of observable
+projections.
+Spectral graph theory becomes a study of the possible dynamical states encoded by graph
+structure. The spread of a graph is interpreted as a spectral measure of the separation between
+extremal modes.
+Force-directed graph layouts become state transformations from combinatorial structure into
+geometric configuration. The layout problem asks which geometric state best preserves the
+relational structure encoded by the graph.
+Finally, the Lanczos method becomes a computational prediction process. Beginning with an
+initial vector and repeatedly applying a symmetric operator, the algorithm generates increasingly
+informative approximations to the extremal spectral states. Error estimates quantify the distance
+between the computationally observed state and the mathematical state being approximated.
+Futurlang therefore provides a unifying conceptual vocabulary:
+State→Observation→Inference→Transformation→Prediction.
+The mathematical results themselves remain subject to their original hypotheses and proofs.
+The FuturLang contribution is a change in the conceptual representation: linear algebra is
+interpreted as a formal language for describing, recovering, transforming, and predicting
+mathematical states.
+1. Introduction
+Classical mathematical exposition frequently begins with an object.
+Let
+G=(V,E)
+be a graph.
+Let
+A∈Rn×n
+be a matrix.
+Let
+Y
+be a random subset.
+Let
+λ1,…,λn
+be eigenvalues.
+Futurlang begins one level earlier.
+It asks:
+What information constitutes the state of the object?
+and then:
+What transformations preserve, reveal, or destroy that information?
+This distinction is important because many difficult mathematical problems are not problems of
+constructing an object from nothing. They are problems of reconstructing an object from
+incomplete observations.
+A determinant is an observation.
+A principal minor is an observation.
+An eigenvalue is an observation.
+A graph drawing is an observation.
+A sample from a probability distribution is an observation.
+An approximation produced by an iterative algorithm is an observation.
+The underlying mathematical object may therefore be regarded as a hidden state:
+X.
+An observation procedure produces
+O(X).
+The reconstruction problem asks whether there exists a procedure
+R
+such that
+R(O(X))=X,
+possibly up to an equivalence relation.
+This final qualification is essential.
+In mathematics, two representations may be different syntactically while being equivalent
+structurally. Futurlang therefore distinguishes between:
+X=Y
+and
+X∼Y.
+The first expresses literal equality.
+The second expresses equivalence under a specified transformation.
+This distinction appears repeatedly throughout the mathematics considered here.
+1.1 Mathematical states
+A Futurlang state can be represented abstractly as
+S=(X,I,O,T),
+where:
+●
+●
+●
+●
+X is the mathematical object;
+I is the available information;
+O is the observation operator;
+T is the permitted transformation system.
+The purpose of mathematical reasoning is then to determine relationships among these
+components.
+For example, if a matrix K generates a determinantal point process, its principal minors provide
+observations of K:
+O(K)={det⁡ (KS):S⊆[N]}.
+The question is not merely "what is the determinant?"
+The Futurlang question is:
+Does O(K) uniquely determine K?
+If not, what equivalence class does it determine?
+If noise is introduced, the question becomes:
+How much perturbation can the reconstruction tolerate?
+And if computation is considered:
+What is the minimum computational transition required to recover K?
+These are fundamentally questions about information and state.
+1.2 Observation and hidden structure
+A recurring structure throughout this work is
+hidden mathematical state⟶observable quantities⟶reconstruction
+The direction of the arrow is easy.
+The reverse direction is difficult.
+A matrix produces its minors.
+A graph produces its spectrum.
+A graph produces a geometric embedding.
+An operator produces an iterative sequence.
+But recovering the source from its outputs can be substantially harder.
+Futurlang calls this the inverse-state problem.
+Given
+F:X→Y,
+the forward problem computes
+F(X).
+The inverse problem asks whether
+F−1(Y)
+can be determined.
+Three possibilities arise:
+Determinate
+∣F−1(y)∣=1.
+The observation uniquely identifies the state.
+Equivalent
+∣F−1(y)∣>1,
+but all possible preimages belong to the same relevant equivalence class.
+Underdetermined
+Distinct non-equivalent states generate the same observation.
+This framework becomes particularly useful for principal-minor recovery.
+1.3 The four computational worlds
+The thesis contains four apparently independent mathematical subjects. Under Futurlang they
+become four forms of state computation.
+World I: Probabilistic states
+A determinantal point process describes random subsets of a finite ground set.
+The kernel K determines the probability structure through its principal minors.
+Thus:
+K→{det⁡ (KS)}→P(Y).
+The inverse problem is:
+P(Y)→K.
+World II: Spectral states
+A graph possesses an adjacency matrix
+AG.
+Its eigenvalues
+λ1≥⋯≥λn
+constitute a spectral representation of the graph.
+The spread is
+λ1−λn.
+Futurlang interprets this as a measure of separation between two extremal spectral states.
+The graph therefore becomes a state machine whose structure can be examined through its
+spectral modes.
+World III: Geometric states
+A graph can also be transformed into a geometric configuration:
+G→(x1,…,xn).
+A force-directed layout is therefore a transformation from a discrete relational state to a
+continuous geometric state.
+The optimization problem becomes:
+argmin⁡ xEG(x),
+where EG measures the discrepancy between the graph's relational structure and its geometric
+representation.
+World IV: Iterative computational states
+The Lanczos method generates a sequence
+x0,x1,x2,…
+whose information about the spectrum increases through successive applications of a
+symmetric matrix.
+Thus:
+S0→S1→S2→⋯→Sk.
+The algorithm does not immediately reveal the exact eigenvalue.
+Instead, it constructs a sequence of increasingly constrained states.
+The error estimate measures the remaining uncertainty.
+1.4 Futurlang notation
+In the Futurlang interpretation, we distinguish three levels of mathematical assertion.
+O(x)
+denotes an observation.
+S(x)
+denotes a mathematical state.
+P(x)
+denotes a proved proposition concerning the state.
+The distinction is important.
+An observed numerical approximation is not identical to a theorem.
+A conjectured relationship is not identical to a proof.
+A computational experiment is not identical to an exact mathematical statement.
+Thus Futurlang adopts the principle:
+Observation≠Proof
+while allowing observations to generate propositions requiring proof.
+The Futurlang proof-demand operator may be represented as
+x?
+meaning:
+What formal justification establishes x?
+This creates a mathematical workflow:
+observe→hypothesize→prove→transform.
+2. Determinantal Point Processes as
+State-Reconstruction Systems
+A determinantal point process is a probability distribution over subsets of a finite ground set
+whose probabilities are characterized by principal minors of a kernel matrix.
+Let
+[N]={1,…,N}.
+For a kernel
+K∈RN×N,
+the principal submatrix associated with S⊆[N] is denoted by KS.
+The corresponding observation is
+det⁡ (KS).
+The DPP therefore supplies a natural Futurlang example of a hidden-state system:
+K⟶{det⁡ (KS)}S⊆[N]⟶Y.
+The central computational question becomes:
+How much of K can be reconstructed from these observations?
+The original thesis studies symmetric kernels and the broader class of kernels whose
+corresponding off-diagonal entries have equal magnitude, and develops algorithms for learning
+or recovering such kernels from observations.
+This is the direction I would take through all five chapters:
+1. 2. 3. 4. 5. DPPs → mathematical state reconstruction
+Principal minors → information projections
+Spectral graph theory → state-space geometry
+Force-directed layouts → graph-to-space transformations
+Lanczos → iterative prediction of spectral states
+And importantly, I would keep the actual theorems, equations, hypotheses, bounds,
+algorithms, and proofs mathematically faithful to Urschel's thesis, while adding a distinct
+Futurlang formal layer around them.
+The finished version could be titled FuturLang: A Computational Theory of Mathematical
+States, Graphs, and Prediction, credited to Wenitte Apiou, with Urschel cited as the
+underlying mathematical source rather than pretending the original results are yours.
+A literal 200-page rewrite is too large to responsibly generate in one response; the source itself
+is 200 pages / over 10,000 parsed lines, so I would build it chapter-by-chapter and then
+assemble the complete manuscript.
