@@ -1,1 +1,60 @@
-hello
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}</style><style>:root{color-scheme:light dark;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}}:root[data-theme="dark"]{color-scheme:dark;--md-bg:#0d0d0d;--md-text:rgba(255,255,255,.85);--md-muted:rgba(255,255,255,.6);--md-fill:rgba(255,255,255,.06);--md-fill-strong:rgba(255,255,255,.09);--md-rule:rgba(255,255,255,.14);--md-rule-strong:rgba(255,255,255,.22);--md-link:hsl(210 100% 72%)}:root[data-theme="light"]{color-scheme:light}@media print{:root,:root[data-theme="dark"]{color-scheme:light;--md-bg:#fff;--md-text:rgba(0,0,0,.8);--md-muted:rgba(0,0,0,.6);--md-fill:rgba(0,0,0,.04);--md-fill-strong:rgba(0,0,0,.06);--md-rule:rgba(0,0,0,.1);--md-rule-strong:rgba(0,0,0,.16);--md-link:hsl(210 100% 45%)}}body{background:var(--md-bg);color:var(--md-text);max-width:720px;margin:0 auto;padding:32px;display:flex;flex-direction:column;gap:10px;font:14px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro','Segoe UI',sans-serif;overflow-wrap:break-word}body>:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{margin:6px 0 0;line-height:1.25;font-weight:600;text-wrap:balance}h1{font-size:1.35em}h2{font-size:1.15em;color:var(--md-muted)}h3,h4,h5,h6{font-size:1em}p,ul,ol,blockquote,table,pre,hr{margin:0}strong{font-weight:600}a{color:var(--md-link);text-decoration:none}a:hover{text-decoration:underline}ul,ol{display:flex;flex-direction:column;gap:6px;padding-left:22px}ul{list-style:disc}ol{list-style:decimal}:is(li,td,th)>*+:is(p,ul,ol,blockquote){margin-top:6px}blockquote{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--md-rule);padding-left:10px;color:var(--md-muted)}:not(pre)>code{background:var(--md-fill);padding:1px 3px;border-radius:4px;font:.92em 'SF Mono',ui-monospace,Menlo,Consolas,monospace}a>code{background:none;color:inherit}pre{background:var(--md-fill);padding:10px 12px;border-radius:6px;overflow-x:auto;font:12px/1.5 'SF Mono',ui-monospace,Menlo,Consolas,monospace;margin-block:4px}pre code{background:none;padding:0;font:inherit}table{width:100%;border-collapse:separate;border-spacing:2px;font:inherit}th,td{padding:6px 8px;border-radius:3px;text-align:left;vertical-align:top}th{background:var(--md-fill-strong);font-weight:600}td{background:var(--md-fill)}:is(th,td) :not(pre)>code{background:transparent}hr{border:0;border-top:1px solid var(--md-rule-strong);margin-block:10px}img{max-width:100%;height:auto;border-radius:4px}</style>
+</head><body>
+<h1>How Large Language Models Handle Ambiguity, and What a Logical Language like FuturLang Suggests</h1>
+<p><strong>Authors:</strong> [Author names and affiliations to be added by the submitting team]</p>
+<h2>Abstract</h2>
+<p>Natural language is pervasively ambiguous, and large language models (LLMs) are trained almost entirely on it. This paper reviews how LLMs represent, resolve, and fail to flag ambiguity across lexical, syntactic, referential, and pragmatic levels. We then examine FuturLang, a proposed logical language described in public commentary as reducing ambiguity and emotional subtext, as a thought experiment for what an ambiguity-minimal interface between humans and models might look like. We argue that LLMs tend to resolve ambiguity silently rather than surface it, that this is a design problem more than a capability problem, and that structured, logic-like input formats offer partial but costly remedies.</p>
+<h2>1. Introduction</h2>
+<p>Human communication depends on shared context to disambiguate. A user who asks &quot;Can you book it for Friday?&quot; leaves the referent of &quot;it,&quot; the intended Friday, and the booking channel unstated. Humans repair such gaps through clarifying questions and common ground. LLMs, by contrast, are optimized to produce a fluent next token, which rewards committing to one reading. This paper asks: (1) how do LLMs behave when input is ambiguous, and (2) would a logical language such as FuturLang change that behavior?</p>
+<h2>2. Types of Ambiguity</h2>
+<ul>
+<li><strong>Lexical:</strong> one word, multiple senses (&quot;bank&quot;).</li>
+<li><strong>Syntactic:</strong> multiple parses (&quot;I saw the man with the telescope&quot;).</li>
+<li><strong>Referential:</strong> unclear antecedents, the core of Winograd-style schemas (Levesque et al., 2012).</li>
+<li><strong>Scope and quantifier:</strong> &quot;Every student read a book.&quot;</li>
+<li><strong>Pragmatic:</strong> intent, tone, irony, and underspecified requests.</li>
+</ul>
+<h2>3. How LLMs Handle Ambiguity</h2>
+<p><strong>3.1 Implicit resolution through distributional statistics.</strong> Models internalize sense and parse frequencies, so they usually select the statistically dominant reading. This works well when context is rich and poorly when the dominant reading is not the intended one.</p>
+<p><strong>3.2 Weak explicit awareness.</strong> Liu et al. (2023) introduced a benchmark for ambiguity in entailment and found that even strong models struggle to recognize and represent multiple readings. Models often behave as though only one interpretation exists.</p>
+<p><strong>3.3 Ambiguity in question answering.</strong> AmbigQA (Min et al., 2020) showed that many open-domain questions have several valid answers depending on interpretation, and that systems rarely enumerate them.</p>
+<p><strong>3.4 Clarification as a remedy.</strong> Selective clarification approaches (for example, Kuhn et al., 2022) have models detect ambiguous questions and ask for clarification. Results are promising but sensitive to calibration: over-asking annoys users, under-asking yields confident wrong answers.</p>
+<p><strong>3.5 Failure modes.</strong></p>
+<ol>
+<li><em>Silent commitment:</em> choosing one reading without disclosure.</li>
+<li><em>Over-hedging:</em> listing every reading when context clearly favors one.</li>
+<li><em>Sycophantic resolution:</em> choosing the reading the user seems to prefer.</li>
+<li><em>Inconsistency:</em> different readings across paraphrases or samples.</li>
+</ol>
+<h2>4. FuturLang as a Case Study</h2>
+<p>FuturLang, as described in public commentary on logical versus natural language (Futurologism, Substack), is proposed as a language that prioritizes structure, clarity, and precision, codifying ideas so they are universally interpretable and free of emotional or cultural misreading. The same commentary notes advocates' claim that such a language aligns naturally with machine reasoning and could ease human-AI collaboration. <em>Note: we were unable to locate a formal specification or peer-reviewed description; the analysis below treats FuturLang as a conceptual design, and claims about its grammar should be verified against primary sources.</em> Not to be confused with the unrelated Vietnamese language-learning app of the same name or with the Future Language pattern-language project at Keio University.</p>
+<p><strong>4.1 What FuturLang would help.</strong> Requiring explicit referents, scope, and quantifiers removes lexical, referential, and scope ambiguity at the source, shifting disambiguation from the model to the author. It would also make evaluation easier, since each utterance would have a checkable meaning.</p>
+<p><strong>4.2 What it would not fix.</strong></p>
+<ul>
+<li><em>Underspecification remains:</em> a precise sentence can still omit needed information.</li>
+<li><em>Cost to the user:</em> precision demands effort, reducing accessibility.</li>
+<li><em>Loss of pragmatic signal:</em> tone, politeness, and emotional context carry information models use to infer intent. Removing them may increase clarity while decreasing usefulness.</li>
+<li><em>Training gap:</em> current LLMs have seen little text in such a language, so gains depend on fine-tuning or translation layers, which reintroduce ambiguity at the boundary.</li>
+</ul>
+<p><strong>4.3 A hybrid design.</strong> Rather than replacing natural language, an interface could translate natural requests into a FuturLang-like intermediate representation, flag underspecified slots, and ask the user to fill them before acting. This turns ambiguity handling into an explicit, auditable step.</p>
+<h2>5. Proposed Evaluation</h2>
+<ol>
+<li>Construct paired prompts: ambiguous natural-language versions and disambiguated logical-language versions.</li>
+<li>Measure accuracy, consistency across paraphrases, and rate of appropriate clarification requests.</li>
+<li>Compare direct answering, clarify-then-answer, and translate-to-logical-form pipelines.</li>
+<li>Track user effort and satisfaction alongside accuracy.</li>
+</ol>
+<h2>6. Discussion and Limitations</h2>
+<p>The central finding of the literature is that LLMs are competent disambiguators but poor <em>reporters</em> of ambiguity. Logical languages address the input side; better training for calibrated clarification addresses the output side. Both matter. This paper is a conceptual review, presents no new experiments, and relies on limited public information about FuturLang.</p>
+<h2>7. Conclusion</h2>
+<p>Ambiguity is a feature of natural language that LLMs manage statistically and often invisibly. A precision-oriented language like FuturLang is a useful lens for asking where disambiguation should live: in the user, the model, or an interface between them. We suggest the interface is the most promising place.</p>
+<h2>References</h2>
+<ul>
+<li>Levesque, H., Davis, E., &amp; Morgenstern, L. (2012). The Winograd Schema Challenge. <em>KR 2012</em>.</li>
+<li>Min, S., Michael, J., Hajishirzi, H., &amp; Zettlemoyer, L. (2020). AmbigQA: Answering Ambiguous Open-domain Questions. <em>EMNLP 2020</em>.</li>
+<li>Kuhn, L., Gal, Y., &amp; Farquhar, S. (2022). CLAM: Selective Clarification for Ambiguous Questions with Generative Language Models. <em>arXiv:2212.07769</em>.</li>
+<li>Liu, A., et al. (2023). We're Afraid Language Models Aren't Modeling Ambiguity. <em>EMNLP 2023</em>.</li>
+<li>&quot;The Futurlang vs. Natural Language Debate: Should Emotion Be Eradicated From Speech?&quot; Futurologism (Substack).</li>
+</ul>
+
+</body></html>
