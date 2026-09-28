@@ -1,0 +1,102 @@
+Time as a Finfinite Machine
+A FuturLang Theory of Temporal States, Observation, and Prediction
+Wenitte Apiou
+Companion to "FuturLang: A Computational Theory of Mathematical States, Graphs, and Prediction." The underlying mathematical sources are J. C. Urschel, "Graphs, Principal Minors, and Eigenvalue Problems" (MIT, 2021), and the standard literature cited at the end. Results attributed to those sources keep their original hypotheses. The FuturLang contribution is the conceptual layer and the definitions in Sections 2 to 4.
+Abstract
+We introduce the finfinite machine, a transition system whose present is always finite and whose run is never exhausted. The word is built by the same blending rule that gives clopen from closed and open: take the front of the first term, the back of the second, and merge at the shared sequence. Fin and infinite merge at fin, so finfinite is a finite thing that carries its own infinite continuation.
+We propose that time is best modeled as the run of such a machine. Within the FuturLang scheme S = (X, I, O, T), time becomes the iterated action of the transition system T on a hidden state X, exposed only through finite observations O. Four consequences follow. The direction of time is a case of the inverse-state problem. Prediction is a Krylov (Lanczos-type) process with computable error. The modes of time are the spectrum of T, and their separation is a spread. Events with mutual avoidance are naturally modeled by determinantal point processes. We state each claim as a definition or proposition, prove those that are elementary, and mark the rest as conjectures. Following the FuturLang principle Observation ≠ Proof, nothing here is offered as physics. It is offered as a formal language in which temporal claims can be stated and tested.
+1. Word and Idea
+1.1 The blending rule
+Clopen names a set that is both closed and open. It merges closed and open at the shared o. The recipe is:
+Take two opposed terms.
+Keep the front of the first and the back of the second.
+Merge at a shared letter or sequence, so the result contains both and is neither.
+Applied to finite and infinite: infinite = in + finite, so the two share fin, and the blend is finfinite.
+1.2 Why the analogy is more than wordplay
+In topology, clopen marks exactly where discreteness and continuity disagree. In a discrete space every subset is clopen, so every point is isolated. In a connected space such as ℝ, the only clopen subsets are ∅ and the whole space. Time has a discrete face (steps, ticks, measurements, events) and a continuous face (flow). A model that respects both needs a notion of an isolated instant that still belongs to an unbroken run. That is the finfinite condition.
+2. The Finfinite Machine
+2.1 FuturLang states
+A FuturLang state is S = (X, I, O, T), where X is the mathematical object, I the available information, O the observation operator, and T the permitted transformation system. We specialize this.
+Definition 1 (Finfinite machine). A finfinite machine is a tuple
+M = (X, O, T, x₀, ∼)
+where:
+X is a set of hidden states;
+O : X → Y is an observation map into a finite set Y (finite information per instant);
+T : X → X is the transition rule;
+x₀ ∈ X is the initial state;
+∼ is an equivalence relation on X, the relevant equivalence (FuturLang's distinction between X = Y and X ∼ Y).
+Its run is the sequence xₜ = Tᵗ(x₀) for t ∈ ℕ, and its record is yₜ = O(xₜ).
+Proposition 1 (finite present, infinite run). At every t, the information available from the record up to time t is finite: it lies in Y^{t+1}, a finite set. The run is defined for every t ∈ ℕ and has no last element.
+Proof. Y is finite, so Y^{t+1} is finite. T is a total function, so Tᵗ(x₀) exists for every t. ∎
+This is the sense in which the machine is finfinite: each instant is bounded, and the process never runs out of instants.
+2.2 The clopen step
+Definition 2 (Clopen step). Give ℕ the discrete topology. Each instant {t} is then both open and closed. A finfinite machine is clopen-stepped by construction: every instant is isolated, yet the run is a single connected object once we pass to the refinement below.
+Definition 3 (Refinement). A refinement of M is a family M_k = (X, O, T_k, x₀, ∼) with T_k^{2^k} = T, read as steps of duration 2^{−k}. The continuous limit is the flow φ_τ = lim_{k→∞} T_k^{⌊τ2^k⌋}, when this limit exists.
+Proposition 2 (no isolated now in the continuum). If time is modeled as ℝ with its usual topology, no proper nonempty subset is clopen. So no instant can be isolated topologically.
+Proof. ℝ is connected, and a space is connected exactly when its only clopen subsets are ∅ and the whole space. ∎
+Reading. The isolated instant belongs to the discrete machine M_k, not to the limit. The finfinite machine keeps both descriptions available: a clopen instant at each finite resolution, and a connected flow in the limit. Whether the limit exists is a property of T, not a given.
+3. Time's Direction as the Inverse-State Problem
+FuturLang's inverse-state problem asks, for a forward map F : X → Y, what F⁻¹(y) looks like. For the machine, take the forward map to be
+F_k(x) = (O(x), O(Tx), …, O(T^k x)).
+The reconstruction question at time k is: what can be recovered about the past from the record?
+Let the k-step preimage of a state x be P_k(x) = {z ∈ X : T^k z = x}. The three FuturLang cases become:
+Determinate. |P_k(x)| = 1. The present fixes the past.
+Equivalent. |P_k(x)| > 1, but all elements of P_k(x) are ∼-equivalent.
+Underdetermined. P_k(x) contains non-equivalent elements.
+Proposition 3.
+(a) If T is a bijection, every state is determinate for all k.
+(b) If T is not injective, there is a state x and a k ≥ 1 for which P_k(x) has at least two elements. If in addition two of its elements are inequivalent, x is underdetermined.
+Proof. (a) A bijection has a unique inverse, so P_k(x) = {T^{−k}(x)}. (b) Non-injectivity gives z ≠ z′ with Tz = Tz′ = x. Then P₁(x) ⊇ {z, z′}. ∎
+Example (irreversibility). Let X = ℝ and let T be the coarse-graining T(x) = ⌊x⌋. Then P₁(n) = [n, n+1) for each integer n, so the fiber is uncountable, and if ∼ is equality, the past is underdetermined. If ∼ identifies x and x′ whenever ⌊x⌋ = ⌊x′⌋, the same fiber is a single class. The verdict depends on the chosen equivalence, so "arrow of time" is relative to what we agree to distinguish.
+Conjecture 1. For a physically motivated ∼ (macrostate equivalence), the growth of the fiber's size in terms of ∼-classes is the entropy-like quantity that orients the machine. This needs a definition of fiber measure and is left as an open problem.
+4. Prediction as a Krylov Process
+4.1 Linear machines
+Suppose X = ℝⁿ and T is a symmetric matrix with eigenpairs (λᵢ, vᵢ), λ₁ ≥ ⋯ ≥ λₙ. Then xₜ = Tᵗx₀ = Σᵢ λᵢᵗ ⟨x₀, vᵢ⟩ vᵢ. Each eigenvalue is a mode of time: |λᵢ| < 1 decays, |λᵢ| > 1 grows, and negative λᵢ oscillates in sign.
+Definition 4 (Temporal spread). The spread of a linear finfinite machine is s(T) = λ₁ − λₙ. For a graph with adjacency matrix A_G, this is the graph's spread, which FuturLang reads as the separation between the two extremal spectral states. In temporal terms it is the bandwidth between the fastest-growing and the most sign-reversing dynamics.
+4.2 Lanczos as the finite predictor
+A finite observer sees only x₀, Tx₀, T²x₀, …, T^{k−1}x₀. These span the Krylov subspace 𝒦_k(T, x₀). The Lanczos method computes the compression of T to 𝒦_k, whose eigenvalues θ₁ ≥ ⋯ ≥ θ_k (Ritz values) approximate the extremal eigenvalues of T. Each step adds one more application of T, so information about the modes grows monotonically.
+Proposition 4 (monotone information, standard). The Ritz values satisfy λ₁ ≥ θ₁^{(k)} and θ₁^{(k)} ≤ θ₁^{(k+1)}. Likewise θ_k^{(k)} ≥ λₙ and is non-increasing in k.
+Proof sketch. Ritz values are Rayleigh-quotient extrema over 𝒦_k, and 𝒦_k ⊆ 𝒦_{k+1}, so the maximum over the larger space is at least as large and at most λ₁. The same argument applies to the minimum. ∎
+Proposition 5 (error bound, classical Kaniel–Paige–Saad form). If x₀ has a nonzero component along v₁ and γ = (λ₁ − λ₂)/(λ₂ − λₙ), then
+0 ≤ λ₁ − θ₁^{(k)} ≤ (λ₁ − λₙ) · tan²∠(x₀, v₁) / T²_{k−1}(1 + 2γ),
+where T_{k−1} is the Chebyshev polynomial of degree k − 1.
+Reading. The right side is the remaining uncertainty about the future. It decays geometrically in k at a rate set by the gap ratio γ, and it scales with the spread s(T). Bounds of Lanczos type that do not depend on the gap are treated in Urschel's thesis; consult that source for their precise statements and hypotheses.
+The correspondence is therefore exact in the linear case. A finite observer predicts the extremal modes of time by iterated application of T, and the prediction error is a computable function of the spread, the gap, and the alignment of the starting state with the mode being estimated.
+5. Events as a Graph
+Let G = (V, E) have events as vertices and causal or relational links as edges. A force-directed layout is a map
+G ⟶ (x₁, …, x_n) ∈ ℝ^d, x = argmin E_G(x),
+where E_G penalizes distance between linked events and rewards separation of unlinked ones. In FuturLang, this is a state transformation from a combinatorial state to a geometric state. Read causally, the layout is a candidate spacetime embedding: the arrangement of events that best preserves their relations.
+Proposition 6 (spectral content of the layout). For a connected graph with Laplacian L, minimizing Σ_{ij∈E} ‖xᵢ − xⱼ‖² subject to Σ xᵢ = 0 and XᵀX = I gives, in each coordinate, an eigenvector of L for its smallest nonzero eigenvalues.
+Proof. The quadratic form is tr(XᵀLX). Under the stated constraints, its minimizers are spanned by the eigenvectors of the smallest nonzero eigenvalues of L (Courant–Fischer). ∎
+So the geometry of the event graph is again governed by a spectrum. The same object, the spectrum, serves as the modes of the dynamics (Section 4) and as the coordinates of the embedding (this section).
+6. Events That Repel: Determinantal Time
+A determinantal point process (DPP) on [N] with symmetric kernel K, 0 ⪯ K ⪯ I, satisfies P(S ⊆ Y) = det(K_S). Take [N] to be a set of candidate event times.
+Proposition 7 (temporal repulsion). For i ≠ j, P({i, j} ⊆ Y) ≤ P(i ∈ Y) · P(j ∈ Y).
+Proof. P({i,j} ⊆ Y) = K_ii K_jj − K_ij² ≤ K_ii K_jj = P(i ∈ Y)P(j ∈ Y). ∎
+The more similar two candidate times are (larger |K_ij|), the less likely both occur. A finfinite machine whose events are DPP-distributed thus has anti-bunching: events spread out in time instead of clustering.
+6.1 Reconstructing the hidden temporal kernel
+Here the principal minors are the observations: O(K) = {det K_S : S ⊆ [N]}. FuturLang asks whether O(K) determines K, and up to what equivalence.
+Proposition 8 (low-order minors). For symmetric K, the minors of sizes 1 and 2 determine the diagonal entries K_ii and the absolute values |K_ij|.
+Proof. det K_{i} = K_ii, and det K_{ij} = K_ii K_jj − K_ij², so K_ij² = K_ii K_jj − det K_{ij}. ∎
+Proposition 9 (invisible signs). For any diagonal matrix D with entries ±1, K′ = DKD has the same principal minors as K.
+Proof. det(D K_S D) = det(D_S)² det(K_S) = det(K_S). ∎
+Hence, in FuturLang terms, the minors can determine K at best up to the equivalence K ∼ DKD, and the question is whether this equivalence is the only obstruction. In the symmetric case, the size-3 minors fix the sign of each triple product K_ij K_jk K_ik (since det K_{ijk} contains the term 2K_ijK_jkK_ik), and cycle information of higher order is needed for sparser graphs. The general recovery problem for symmetric kernels, and for the broader class whose corresponding off-diagonal entries have equal magnitude, is the subject of Urschel's thesis, where algorithms and their guarantees are developed. The temporal reading is that the hidden structure of when events tend to co-occur is recoverable from finite-order co-occurrence statistics, up to sign-conjugation.
+7. Summary: One Tick of the Machine
+FuturLang stage	Temporal meaning	Mathematical object
+State	Hidden condition of the world	x_t ∈ X
+Observation	Finite record of the present	O(x_t) ∈ Y
+Inference	Reconstruction of past or kernel	P_k(x), principal minors
+Transformation	The step of time	T, T_k
+Prediction	Estimate of future modes	Ritz values, error bound
+Statement. Time is a finfinite machine: a finite-state-per-instant transition system whose unbounded run generates hidden states, exposes them only through finite observations, and can be inferred and predicted only up to the equivalence class those observations permit.
+8. Status of Claims
+Following FuturLang's three levels O(x), S(x), P(x):
+Proved here (P): Propositions 1, 2, 3, 6 (via cited principle), 7, 8, 9.
+Cited results (P, external): Propositions 4 and 5 (classical Lanczos theory); the full principal-minor recovery theory (Urschel).
+Conjectural (S, to be proved): Conjecture 1 (entropy as fiber growth); existence of the continuous limit for a given T; any identification of these structures with physical time.
+Open problems: (i) a measure on fibers P_k(x) making the arrow of time quantitative; (ii) conditions on T under which refinements M_k converge to a flow; (iii) nonlinear analogues of the Krylov predictor; (iv) recovery of a temporal DPP kernel from noisy minors, with tolerance bounds.
+References
+J. C. Urschel, Graphs, Principal Minors, and Eigenvalue Problems, PhD thesis, MIT, 2021.
+A. Kulesza and B. Taskar, "Determinantal point processes for machine learning," Foundations and Trends in Machine Learning, 2012.
+S. Kaniel, "Estimates for some computational techniques in linear algebra," Math. Comp., 1966; C. C. Paige, PhD thesis, University of London, 1971; Y. Saad, "On the rates of convergence of the Lanczos and the block-Lanczos methods," SIAM J. Numer. Anal., 1980.
+G. H. Golub and C. F. Van Loan, Matrix Computations, 4th ed., Johns Hopkins University Press, 2013.
