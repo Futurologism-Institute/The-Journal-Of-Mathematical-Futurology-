@@ -1,0 +1,608 @@
+Abstract
+
+The Wenitte Chomsky Laws of Linguistic Information Dynamics constitute a proposed mathematical framework for understanding the transmission of linguistic information across historical time. Building on information theory, statistical physics, computational linguistics, and theories of cultural evolution, the framework conceptualizes languages as dynamic information systems whose representations evolve through successive generations of speakers.
+
+The central proposition is that linguistic evolution cannot be adequately described as either the accumulation of grammatical complexity or the destruction of inherited information. Instead, linguistic change involves three distinguishable processes: the degradation of information relative to a particular decoder, the redistribution of information between linguistic levels, and the reconstruction of inherited structures through institutional and cultural transmission.
+
+This paper proposes twelve laws governing these processes. The laws address intergenerational information transmission, decoder-relative degradation, grammatical re-encoding, frequency-dependent persistence, orthographic conservation, institutional correction, historical intelligibility, linguistic complexity, and the reconstruction of ancient linguistic states.
+
+The framework is illustrated through the comparison of Victorian and modern British English with Koine and Modern Greek. These cases demonstrate how different linguistic systems may preserve different forms of historical information despite substantial changes in grammar, pronunciation, vocabulary, and usage.
+
+The laws are presented as theoretical propositions with mathematical formulations and testable implications. Their validity and scope remain subjects for empirical investigation.
+
+Proposed attribution: Wenitte Chomsky, Wenitte Chomsky Laws of Linguistic Information Dynamics.
+
+⸻
+
+1. Foundational Definitions
+
+Let a linguistic system at historical time (t) be represented by
+
+[
+L_t=(P_t,G_t,V_t,O_t,C_t),
+]
+
+where:
+
+* (P_t) represents phonological structure.
+* (G_t) represents grammatical structure.
+* (V_t) represents the lexicon and its semantic relationships.
+* (O_t) represents orthographic conventions.
+* (C_t) represents contextual and pragmatic information.
+
+Let (T) denote the process through which one generation transmits linguistic information to another.
+
+The resulting sequence is
+
+[
+L_0 \rightarrow L_1 \rightarrow L_2
+\rightarrow \cdots \rightarrow L_n.
+]
+
+This sequence is an idealized model of linguistic transmission. Real languages also experience contact, migration, deliberate standardization, borrowing, and institutional intervention.
+
+The objective of the Wenitte Chomsky framework is to identify the mathematical conditions under which linguistic information persists, changes representation, becomes inaccessible, or can be reconstructed.
+
+Definition 1: Linguistic information retention
+
+Let (X_0) represent an earlier linguistic state and (X_n) a later state. Define
+
+[
+R_n=I(X_0;X_n),
+]
+
+where (I) denotes mutual information.
+
+This quantity measures statistical dependence between the two states. In practical research, it must be operationalized through observable representations or measurable features rather than treated as a directly available scalar property of an entire natural language.
+
+Definition 2: Decoder-relative divergence
+
+Let (P_{\mathrm{old}}) be the distribution of historical texts and (Q_{\mathrm{new}}) a probabilistic model trained on a later linguistic state.
+
+Define
+
+[
+D_{\mathrm{old}\parallel\mathrm{new}}
+
+D_{\mathrm{KL}}(P_{\mathrm{old}}\parallel Q_{\mathrm{new}}).
+]
+
+This quantity measures how poorly the later model predicts historical material, provided the relevant distributions and supports are properly defined.
+
+Definition 3: Linguistic re-encoding
+
+A linguistic distinction is re-encoded when information formerly represented at one linguistic level becomes represented through another level.
+
+For example, a grammatical relationship formerly indicated by an inflectional ending may instead be communicated through a preposition, a particle, or a syntactic construction.
+
+Re-encoding is not automatically information-preserving. Whether information survives depends on the recoverability of the original distinction under the new representation and the relevant context.
+
+⸻
+
+2. The Twelve Wenitte Chomsky Laws
+
+Law I: The Law of Intergenerational Information Attenuation
+
+Statement: In a closed, sequential transmission process, the information a later linguistic state retains about an earlier state cannot increase merely by processing an intervening state.
+
+For a Markov chain
+
+[
+X_0\rightarrow X_1\rightarrow \cdots \rightarrow X_n,
+]
+
+the data-processing inequality gives
+
+[
+I(X_0;X_{n+1})\leq I(X_0;X_n).
+]
+
+This is a mathematical consequence of the Markov-chain assumptions.
+
+The law provides a formal description of information attenuation during repeated transmission. It does not imply that every linguistic feature becomes less common, less complex, or less useful over time.
+
+Interpretation: Languages can preserve recognizable ancestry while progressively losing access to particular details of earlier linguistic states.
+
+Example: Modern English preserves extensive vocabulary and grammatical continuity with Victorian English while differing in pronunciation, word meanings, social conventions, and construction frequencies.
+
+Testable prediction: Under a fixed transmission model, appropriately measured dependence on the initial linguistic state should not increase across successive generations without additional information sources.
+
+Important qualification: Historical language communities are not closed transmission chains. Dictionaries, books, schools, religious traditions, and renewed contact with older texts can introduce information from outside the immediate chain.
+
+⸻
+
+Law II: The Law of Decoder-Relative Degradation
+
+Statement: Linguistic degradation is a relationship between a source and a decoder, rather than an absolute property of the source.
+
+Define the degradation score
+
+[
+\Delta(P,Q)=D_{\mathrm{KL}}(P\parallel Q).
+]
+
+A historical text can have a low degradation score under one decoder and a high score under another.
+
+For example,
+
+[
+\Delta(P_{\mathrm{Victorian}},Q_{\mathrm{ModernEnglish}})
+]
+
+may be relatively small compared with
+
+[
+\Delta(P_{\mathrm{Koine}},Q_{\mathrm{ModernGreek}}),
+]
+
+but this ordering is a hypothesis to test, not a result established merely by the ages of the languages.
+
+Interpretation: A language may remain structurally related to its ancestor while becoming difficult for modern readers to interpret.
+
+Testable prediction: Historical texts should become more predictable to a later-era language model as relevant historical linguistic knowledge is added to its training data.
+
+Research implication: Linguistic history should be measured using multiple decoders, including general modern-language models, historically trained models, and models supplied with explicit grammatical instruction.
+
+⸻
+
+Law III: The Law of Cross-Level Re-encoding
+
+Statement: A change in the linguistic level that carries a distinction does not necessarily entail the disappearance of the distinction itself.
+
+Suppose a grammatical distinction (M) is initially represented by morphology and later represented by syntax.
+
+The transition may be represented as
+
+[
+M_{\mathrm{morph}}
+\longrightarrow
+M_{\mathrm{syntax}}.
+]
+
+Alternatively, a distinction may become distributed across several levels:
+
+[
+M_{\mathrm{old}}
+\longrightarrow
+(M_{\mathrm{lex}},M_{\mathrm{syn}},M_{\mathrm{prag}}).
+]
+
+The original morphological marker may disappear while some of its communicative function survives.
+
+Example: The historical loss of the Greek infinitive did not eliminate the ability to express complementation and purpose. Modern Greek uses alternative constructions, including clauses introduced by να.
+
+Testable prediction: When a grammatical marker declines, corpus analysis should identify whether alternative constructions increase in frequency and preserve the relevant interpretation.
+
+Falsification condition: If the original distinction becomes unrecoverable from the later construction and its context, the change cannot be classified as complete information preservation.
+
+⸻
+
+Law IV: The Law of Frequency-Dependent Persistence
+
+Statement: Under otherwise comparable conditions, frequently used linguistic features may be more resistant to replacement than less frequently used features.
+
+A proposed feature-survival model is
+
+[
+S_i(t)=e^{-\mu_i t},
+]
+
+where (S_i(t)) is the probability that feature (i) persists and (\mu_i) is its estimated replacement rate.
+
+A possible empirical relationship is
+
+[
+\mu_i=a f_i^{-\beta},
+]
+
+where:
+
+* (f_i) is the feature’s usage frequency.
+* (a) is a scale parameter.
+* (\beta>0) measures the strength of the frequency effect.
+
+The specific exponent must be estimated rather than assumed to be universal.
+
+Interpretation: High-frequency words and constructions may persist because speakers encounter and reproduce them repeatedly.
+
+Example: Core vocabulary often has a different historical persistence profile from specialized terminology.
+
+Testable prediction: After controlling for semantic category, borrowing, register, and other relevant factors, higher-frequency features should exhibit lower replacement rates in at least some linguistic domains.
+
+⸻
+
+Law V: The Law of Orthographic Conservation
+
+Statement: A writing system can preserve distinctions that are no longer represented in pronunciation.
+
+Let (O_t) represent historical orthographic information and (P_t) represent phonological information.
+
+The historical relationship may satisfy
+
+[
+I(O_t;O_{t+k}) >
+I(P_t;P_{t+k})
+]
+
+for selected representations and historical intervals.
+
+This inequality is a hypothesis about particular linguistic systems, not a universal law of writing.
+
+Example: Greek spelling preserves several historically distinct representations associated with the modern /i/ sound.
+
+These spellings can preserve information about etymology, morphological relationships, and historical word formation even after pronunciation has merged.
+
+Interpretation: Writing systems can function as long-term storage mechanisms for distinctions that spoken language no longer realizes directly.
+
+Testable prediction: For Greek, models supplied with conventional historical spelling should recover some lexical and morphological relationships more effectively than models supplied only with phonemic transcriptions, all else being equal.
+
+Qualification: Historical spelling can also introduce ambiguity, and its benefits depend on readers’ knowledge of orthographic conventions.
+
+⸻
+
+Law VI: The Law of Institutional Error Correction
+
+Statement: Institutions that repeatedly expose learners to historical linguistic material can preserve or restore access to older linguistic forms.
+
+Let (S_i(t)) denote the retention of a linguistic feature. Consider the proposed model
+
+[
+\frac{dS_i}{dt}
+
+-\mu_i S_i
++
+\rho_i(t)(1-S_i),
+]
+
+where (\rho_i(t)) represents the effective strength of institutional reinforcement.
+
+The parameter may represent the influence of schooling, dictionaries, literary canons, religious texts, or formal language instruction.
+
+This equation is a phenomenological model requiring empirical calibration.
+
+Example: Greek schooling and ecclesiastical traditions have contributed to the transmission of historical Greek forms. The historical coexistence of Katharevousa and Demotic Greek also illustrates deliberate intervention in language standardization.
+
+Testable prediction: A language model trained on contemporary material supplemented with selected historical texts should improve on relevant historical-language tasks compared with an otherwise equivalent model without that supplementation.
+
+Important distinction: Improved historical-text performance does not establish that ordinary speakers retain an unchanged ancient grammar. It demonstrates that additional exposure can improve decoding.
+
+⸻
+
+Law VII: The Law of Contextual Information Loss
+
+Statement: Understanding a historical utterance requires more than recovering its lexical and grammatical content; it also requires recovering the context in which it was produced.
+
+Let (U) represent an utterance and (C) its historical context.
+
+Interpretation depends on
+
+[
+P(M\mid U,C),
+]
+
+where (M) represents the intended meaning.
+
+When historical context becomes inaccessible, uncertainty about meaning may increase even when the utterance remains grammatically intelligible.
+
+The corresponding uncertainty can be expressed as
+
+[
+H(M\mid U,C_{\mathrm{available}}).
+]
+
+If relevant contextual information is removed, conditional entropy cannot decrease simply because the decoder has less information.
+
+Example: A modern reader may understand the grammar of a Victorian political speech while misunderstanding its allusions, institutional assumptions, or social implications.
+
+Testable prediction: Adding reliable historical annotations should improve interpretation accuracy for texts containing period-specific references, even when the original wording remains unchanged.
+
+Interpretation: Historical unintelligibility is partly a problem of missing world knowledge rather than linguistic change alone.
+
+⸻
+
+Law VIII: The Law of Heterogeneous Linguistic Relaxation
+
+Statement: Different linguistic features change at different rates, so the historical evolution of an entire language cannot generally be represented by one universal decay constant.
+
+Let the aggregate retention function be
+
+[
+S(t)=\sum_{i=1}^{N}w_i e^{-\mu_i t},
+]
+
+where
+
+[
+w_i\geq 0,
+\qquad
+\sum_{i=1}^{N}w_i=1.
+]
+
+Here, (w_i) represents the contribution assigned to feature (i), while (\mu_i) represents its estimated rate of change.
+
+This mixture produces heterogeneous decay.
+
+The resulting curve can differ substantially from a single exponential, although it does not necessarily follow a power law or stretched exponential.
+
+Interpretation: Phonology, orthography, grammar, vocabulary, and pragmatics should be expected to have different historical trajectories.
+
+Example: Greek spelling can remain relatively conservative while pronunciation changes considerably. English spelling can remain stable while pronunciation and word meanings change.
+
+Testable prediction: For matched corpora, a model allowing multiple feature-specific rates should outperform a single-rate model when the data exhibit sufficiently strong heterogeneity.
+
+⸻
+
+Law IX: The Law of Linguistic Complexity Redistribution
+
+Statement: Changes in one linguistic subsystem can be accompanied by changes in other subsystems, but the direction and magnitude of the relationship must be measured rather than presumed.
+
+Represent the linguistic system with a feature vector
+
+[
+\mathbf{C}(t)=
+\begin{bmatrix}
+C_{\mathrm{phon}}(t)\
+C_{\mathrm{morph}}(t)\
+C_{\mathrm{syn}}(t)\
+C_{\mathrm{lex}}(t)\
+C_{\mathrm{orth}}(t)
+\end{bmatrix}.
+]
+
+A transition can then be represented by
+
+[
+\Delta\mathbf{C}
+
+\mathbf{C}(t+1)-\mathbf{C}(t).
+]
+
+A decline in morphological distinctions may coincide with increased reliance on particles, prepositions, or syntactic order.
+
+However, the framework does not assume a universal conservation equation such as
+
+[
+\sum_i C_i(t)=\text{constant}.
+]
+
+Such an equation would require an independently justified definition of complexity and evidence that the sum remains approximately invariant.
+
+Example: The historical transition from more synthetic to more analytic grammatical structures in Greek provides a case for investigating cross-level redistribution.
+
+Testable prediction: In selected grammatical domains, historical reductions in inflectional marking will correlate with measurable changes in alternative marking strategies.
+
+Research objective: Determine which changes represent genuine functional compensation, which represent the coexistence of old and new forms, and which represent the loss of distinctions.
+
+⸻
+
+Law X: The Law of Historical Decoding Asymmetry
+
+Statement: The difficulty of interpreting an earlier linguistic state from a later one need not equal the difficulty of interpreting the later state from the earlier one.
+
+For source distributions (P) and (Q),
+
+[
+D_{\mathrm{KL}}(P\parallel Q)
+\neq
+D_{\mathrm{KL}}(Q\parallel P)
+]
+
+in general.
+
+The direction of comparison matters.
+
+Example: A modern Greek language model may struggle with some Koine constructions. A model trained on Koine alone may also struggle with contemporary Greek vocabulary and constructions. The two errors need not have the same magnitude or distribution.
+
+Testable prediction: Bidirectional historical-language evaluations should yield different error profiles when models are trained on different historical periods.
+
+Interpretation: Linguistic continuity does not imply symmetrical intelligibility.
+
+⸻
+
+Law XI: The Law of Corrective Reconstruction
+
+Statement: Information that is no longer readily available through ordinary transmission may become accessible again through surviving records, explicit instruction, or comparison with related linguistic evidence.
+
+Let (X) denote an earlier linguistic state and (Y) a later state. Let (Z) represent additional evidence, such as historical manuscripts, dictionaries, or grammatical descriptions.
+
+Then it is possible that
+
+[
+I(X;Y,Z)>I(X;Y).
+]
+
+The inequality follows from the fact that additional evidence can provide information about the historical state.
+
+Example: Modern readers can learn to interpret Koine Greek through grammatical instruction and historical texts even when they cannot infer all its structures from everyday Modern Greek alone.
+
+Testable prediction: Adding appropriately selected historical evidence to a decoding system should improve its ability to identify earlier grammatical constructions and lexical meanings.
+
+Interpretation: Historical reconstruction does not violate the data-processing inequality. The reconstruction system receives an additional information source.
+
+⸻
+
+Law XII: The Law of Linguistic Continuity Without Identity
+
+Statement: A language lineage can remain historically continuous without preserving an identical grammar, pronunciation, lexicon, or system of meaning.
+
+Define linguistic continuity as a measurable relationship between successive historical states, rather than as strict identity.
+
+For a sequence of states,
+
+[
+L_0,L_1,\ldots,L_n,
+]
+
+continuity may be evaluated through a vector of distances:
+
+[
+\mathbf{D}(L_0,L_n)=
+\begin{bmatrix}
+D_{\mathrm{phon}}\
+D_{\mathrm{morph}}\
+D_{\mathrm{syn}}\
+D_{\mathrm{lex}}\
+D_{\mathrm{orth}}\
+D_{\mathrm{prag}}
+\end{bmatrix}.
+]
+
+The resulting profile describes which components changed and which remained comparatively stable.
+
+Example: Modern Greek belongs to the historical Greek linguistic lineage despite substantial changes since the Koine period. Modern British English likewise remains historically continuous with Victorian English despite changes in usage, pronunciation, vocabulary, and social context.
+
+Testable prediction: Multidimensional comparisons will characterize historical continuity more accurately than a single undifferentiated measure of linguistic similarity.
+
+Interpretation: Historical identity is not the same as structural invariance.
+
+⸻
+
+3. A Unified Mathematical Model
+
+The twelve laws can be integrated into a general model of linguistic transmission.
+
+Let (X_t) represent a measurable linguistic state at time (t). Let (T_t) represent ordinary transmission and (Z_t) represent external information introduced through institutions, written records, or contact.
+
+The transition is
+
+[
+P(X_{t+1}\mid X_t,Z_t).
+]
+
+A useful conceptual decomposition is
+
+[
+\Delta I_{\mathrm{observed}}
+
+\Delta I_{\mathrm{transmission}}
++
+\Delta I_{\mathrm{reencoding}}
++
+\Delta I_{\mathrm{external}}.
+]
+
+This is a bookkeeping framework, not an identity that holds automatically for arbitrary information measures. Each term must be operationally defined to avoid double-counting.
+
+The first term captures changes associated with intergenerational transmission.
+
+The second captures changes in how distinctions are represented across linguistic levels.
+
+The third captures information supplied by historical documents, education, standardization, and other external sources.
+
+Together, these processes offer a research program for investigating why certain historical linguistic features remain accessible while others become difficult to recover.
+
+4. Application to Victorian and Modern British English
+
+The English comparison provides a relatively short historical interval.
+
+The framework predicts that historical decoding difficulty will vary by linguistic subsystem.
+
+Orthographic conventions and much of the core grammatical system remain recognizable, while pronunciation, word meanings, pragmatic assumptions, and construction frequencies have changed.
+
+The primary empirical questions are:
+
+1. How much additional predictive error does Victorian English introduce for models trained on contemporary British English?
+2. How much of the error remains after controlling for genre, topic, vocabulary, and named entities?
+3. Does historical annotation improve interpretation more than additional modern-language training?
+4. Which features exhibit the strongest relationship between frequency and persistence?
+
+The framework does not assume that all Victorian writing is equally intelligible. Genre, author, education, and subject matter can create large differences.
+
+5. Application to Koine and Modern Greek
+
+The Greek comparison provides a substantially longer historical interval and more extensive structural change.
+
+The proposed laws direct attention to several distinct processes:
+
+* Phonological mergers that reduce audible distinctions.
+* Morphological changes that redistribute grammatical marking.
+* Lexical replacement and semantic change.
+* Orthographic conventions that preserve historical relationships.
+* Educational and religious practices that support access to earlier forms.
+
+The central hypothesis is that a modern decoder’s difficulty with Koine Greek cannot be explained by elapsed time alone.
+
+A proper test must distinguish ordinary Modern Greek competence from the additional knowledge acquired through ancient-language education and exposure to historical texts.
+
+The research should also distinguish the preservation of spelling from the preservation of spoken grammar. A writing system can preserve historical evidence without preserving the original pronunciation or making every historical distinction immediately recoverable.
+
+6. Proposed Empirical Research Program
+
+The laws can be evaluated using a common corpus-based pipeline.
+
+Measurement A: Historical predictive divergence
+
+Train comparable probabilistic models on the source and target periods.
+
+Evaluate them on held-out texts, reporting cross-entropy, tokenization choices, and uncertainty intervals.
+
+KL divergence should be estimated only where the probability distributions are properly defined. In practice, held-out cross-entropy differences are often easier to estimate reliably.
+
+Measurement B: Lexical persistence
+
+Construct historically aligned word lists and measure retention by frequency class.
+
+Distinguish inherited words, borrowings, semantic shifts, and orthographic continuities.
+
+Measurement C: Grammatical redistribution
+
+Identify specific grammatical functions and annotate their expression across historical periods.
+
+For Greek, investigate the relationship between inflectional marking and alternative constructions.
+
+For English, investigate selected changes in modal usage, passive constructions, and other historically documented grammatical patterns.
+
+Measurement D: Orthographic contribution
+
+Compare decoding performance on original spelling and carefully designed phonemic transcriptions.
+
+This experiment would test whether historical spelling supplies information useful for lexical or morphological identification.
+
+Measurement E: Institutional correction
+
+Compare models with and without historical supplementary material.
+
+Separate the effects of explicit ancient-language instruction, literary texts, religious texts, and modern historical scholarship where data permit.
+
+Measurement F: Model comparison
+
+Compare single-rate, multi-rate, and alternative survival models.
+
+Evaluate predictive performance on held-out periods rather than selecting a model solely because its curve resembles a preferred theoretical analogy.
+
+7. Falsifiability and Scientific Status
+
+The Wenitte Chomsky Laws should be treated as a collection of mathematical principles, model-dependent propositions, and empirical hypotheses.
+
+Some claims follow directly from established mathematics. The data-processing inequality, for example, is a theorem under its stated assumptions.
+
+Other claims, including the proposed relationships between usage frequency and persistence, require empirical estimation.
+
+Still others, such as broad complexity redistribution across grammatical levels, require careful operational definitions before they can be evaluated quantitatively.
+
+The framework would be strengthened by:
+
+1. Publishing precise operational definitions for every measured variable.
+2. Establishing baseline results using independently collected corpora.
+3. Reporting confidence intervals and model sensitivity.
+4. Testing predictions on language pairs beyond English and Greek.
+5. Publishing null results and counterexamples.
+6. Separating formal theorems from conjectures and interpretive analogies.
+
+The framework would require revision if its proposed empirical relationships consistently failed to predict observations under appropriately controlled tests.
+
+8. Conclusion
+
+The Wenitte Chomsky Laws of Linguistic Information Dynamics propose that linguistic evolution should be studied through the combined analysis of information retention, decoder-relative divergence, cross-level re-encoding, institutional reinforcement, and historical reconstruction.
+
+The English and Greek comparisons illustrate why historical change cannot be reduced to a single scale of linguistic decay.
+
+A language may preserve orthographic information while changing its pronunciation. It may lose a morphological construction while retaining the communicative function through another construction. It may become less intelligible to ordinary contemporary speakers while remaining accessible to readers who possess additional historical knowledge.
+
+The central research proposition is therefore that linguistic continuity depends on the interaction of transmission, representation, context, and correction.
+
+The twelve laws provide a proposed vocabulary and mathematical structure for investigating that proposition. Their scientific contribution will ultimately depend on operational precision, reproducible measurement, and empirical performance.
+
+Proposed citation
+
+Chomsky, W. (2026). Wenitte Chomsky Laws of Linguistic Information Dynamics: A Proposed Mathematical Framework for Language Evolution, Intergenerational Information Transmission, and Grammatical Re-encoding. Theoretical research manuscript.
