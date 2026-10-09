@@ -1,0 +1,182 @@
+Here's the full text:
+
+# Information Degradation Across Linguistic Time: An Information-Theoretic and Statistical-Physics Comparison of Victorian→Modern British English and Koine→Modern Greek
+
+*Theoretical framework and proposed measurement program. No new corpus data are reported; all numerical examples are illustrative and labelled as such.*
+
+## Abstract
+
+Languages are noisy channels that transmit information not only across space but across *generations*. We model diachronic language change as a Markov chain of imperfect learners and ask how much information about an earlier language state survives in a later one. We define three quantities: (i) *decoder-relative degradation*, measured by the Kullback–Leibler divergence between a source-era corpus and a later-era language model; (ii) *intergenerational mutual information*, which by the data-processing inequality can only decrease; and (iii) *re-encoding*, the transfer of information between linguistic levels (morphology, syntax, orthography) that leaves total information conserved even as any fixed decoder loses access to it. We apply the framework to two case pairs: Victorian English (c. 1837–1901) to modern British English (~150–190 years), and Koine Greek (c. 300 BCE–300 CE) to modern Greek (~1,700–2,300 years). We argue that (a) the two pairs are not comparable without normalising for elapsed time and for the strength of the conservative "error-correcting" mechanisms in each tradition, (b) Greek exhibits heavy *re-encoding* (synthetic→analytic) rather than simple loss, and (c) written standards and prestige norms act as error-correcting codes that dominate the observed decay rate. We give testable predictions and a reproducible pipeline.
+
+## 1. Introduction
+
+Every language user is simultaneously a decoder of the language they inherited and an encoder of the language they pass on. Because acquisition is finite-sample inference, each generation reconstructs an approximation of the previous generation's grammar and lexicon. Over many generations small errors accumulate. This is the same structural situation as a repeater chain in communications, a lossy copy-of-a-copy in image compression, or diffusion in a physical system.
+
+Two natural questions follow. First, can the loss be quantified in a principled, corpus-computable way? Second, why do some linguistic lineages appear far more stable than others? English between Queen Victoria's accession and today is readable by almost any modern speaker with only occasional glosses. Koine Greek of the New Testament, written roughly two millennia ago, is substantially harder for a modern Greek speaker than Victorian prose is for a modern English speaker, yet Modern Greek speakers still read it with far more ease than most speakers of other languages can read two-thousand-year-old texts of their own. A fair analysis must separate *how much time elapsed*, *how much the system changed*, and *how much the surrounding culture worked to prevent change*.
+
+The contribution of this paper is conceptual and methodological: a unified formalism borrowing from Shannon theory, algorithmic information theory, and non-equilibrium statistical mechanics, plus a concrete set of measurements that could be run on public corpora.
+
+## 2. Theoretical Framework
+
+### 2.1 Language as a time-indexed source
+
+Let *L_t* denote the language state of a speech community at generation *t*: a joint distribution over utterances, together with the latent grammar and lexicon that generate them. Transmission from *t* to *t+1* is a stochastic map governed by learner inductive biases, contact, and social selection. To first approximation, *L_0 → L_1 → … → L_n* is a Markov chain (iterated learning; Kirby, Cornish & Smith 2008).
+
+### 2.2 Information-theoretic quantities
+
+**Intergenerational mutual information.** Define *I(L_0; L_n)* as the information the state at generation *n* retains about the state at generation 0. For a Markov chain, the **data-processing inequality** gives
+
+`I(L_0; L_n) ≤ I(L_0; L_{n-1}) ≤ … ≤ I(L_0; L_1)`
+
+so retained information is monotonically non-increasing in elapsed generations. The arrow of linguistic time is therefore an *information-theoretic* arrow, analogous to the second law applied to a coarse-grained description. Anything that restores information must come from outside the chain (e.g., a written standard, a prestige dialect, a liturgical register, or deliberate revival), which we model as an extra side channel.
+
+**Decoder-relative degradation.** In practice we cannot observe *I(L_0; L_n)* directly. We instead observe texts. Let *P_0* be the distribution of source-era text and *Q_n* a language model trained on era-*n* text. The expected excess code length incurred by a decoder tuned to era *n* when reading era-0 text is the KL divergence
+
+`D(P_0 ‖ Q_n) = Σ P_0(x) log [ P_0(x) / Q_n(x) ]`
+
+This is the number of extra bits per symbol a modern reader's internal model "pays" to process Victorian or Koine text. It is *asymmetric* (D(P_0‖Q_n) ≠ D(Q_n‖P_0)), reflecting the real asymmetry between a modern reader decoding an old text and an old speaker decoding a modern one. Degradation is thus a property of the *pair* (source, decoder), not of the source alone.
+
+**Baseline entropy.** Shannon (1951) estimated the entropy of printed English at roughly 0.6–1.3 bits per character using human prediction experiments; modern neural estimates are in the same range. Any divergence measure should be reported *relative to* the source's own entropy rate *h*, i.e. as the ratio *D / h*, to avoid conflating inherently more variable text with more degraded text.
+
+### 2.3 Re-encoding versus loss
+
+A central subtlety is that apparent "loss" at one level is often transfer to another. Consider a grammatical distinction marked by a case ending in the source language. If the case ending disappears but a preposition or fixed word order now carries the same distinction, the *message-level* information is preserved while the *morphological* information is gone. We therefore decompose total information per utterance into level-specific components:
+
+`H_total ≈ H_phon + H_morph + H_syn + H_lex + H_orth + H_prag`
+
+and hypothesise an approximate **conservation-with-redistribution** law: when one level's entropy drops, others rise, up to a total that is bounded by the channel's task demands (communicative need). This echoes the claim that human languages trade off complexity across levels to maintain similar overall information rates (cf. Piantadosi, Tily & Gibson 2011, on word-length optimisation). Genuine irreversible loss occurs only when the distinction is no longer recoverable by *any* level and *any* context.
+
+### 2.4 Statistical-physics analogies
+
+We use physics as a source of models, not as a claim that language obeys thermodynamics literally.
+
+- **Diffusion and drift.** Neutral models of cultural variants, in which frequencies perform a random walk under copying error, reproduce many word-frequency dynamics (Bentley, Hahn & Shennan 2004). Variant loss is analogous to absorption at a boundary.
+- **Frequency-dependent relaxation.** Empirically, the rate of regularisation of English irregular verbs scales approximately as the inverse square root of word frequency (Lieberman et al. 2007), and the rate of lexical replacement scales with frequency in a similar way across Indo-European languages (Pagel, Atkinson & Meade 2007). Frequent items behave like deep potential wells: expensive to dislodge. We thus expect *heterogeneous* decay, with a spectrum of relaxation times rather than a single exponential.
+- **Landauer's principle.** Erasing one bit dissipates at least *k_B T ln 2* of energy (Landauer 1961). Forgetting a grammatical distinction is "free" in the sense that learners economise on memory and effort. This frames change as a drive toward lower learning cost, opposed by communicative need and by external correction.
+- **Coarse-graining.** Moving from a rich morphological system to a periphrastic one is a form of renormalisation: fine-grained degrees of freedom are integrated out and replaced by effective, higher-level rules. Information about the microstate is lost to a decoder working only at the coarse level.
+- **Algorithmic complexity.** Let *K(L)* be the (uncomputable) Kolmogorov complexity of a grammar-plus-lexicon. Normalised compression distance (Cilibrasi & Vitányi 2005) offers a practical, computable proxy for the distance between two language states.
+
+### 2.5 A minimal decay model
+
+Let feature *i* (a lexical item, construction, or phonological contrast) have per-century survival probability *e^(−μ_i)*, with relaxation rate *μ_i ∝ f_i^(−1/2)* where *f_i* is its usage frequency. If frequencies follow a Zipf distribution, the population-averaged survival
+
+`S(t) = Σ_i w_i · exp(−μ_i t)`
+
+is a *superposition of exponentials*, which decays more slowly than any single exponential at long times and is well approximated by a stretched exponential or a power law over finite ranges. Two consequences follow: (1) the "half-life" of a language state depends on the observation window; and (2) the *core* vocabulary and high-frequency grammar persist almost indefinitely, which explains why even very distant stages of a language remain recognisably related.
+
+**External correction term.** Add a restoring term *ρ(t)* representing standardisation, schooling, literary canon, and liturgy:
+
+`dS_i/dt = −μ_i S_i + ρ_i(t)(1 − S_i)`
+
+where *ρ_i* is large for features that are prescribed and taught (e.g., orthography and canonical spellings) and near zero for features acquired purely by informal speech (e.g., phonology, fast-speech syntax).
+
+## 3. Case Study A: Victorian English → Modern British English
+
+**Time baseline.** Δ ≈ 125–190 years, about five to seven generations.
+
+**What has changed (qualitatively).** Documented shifts include the rise of the progressive passive ("the house is being built", versus earlier "the house is building"), the spread of the *get*-passive, continued decline of the *shall/will* distinction for the first person, decline of the morphological subjunctive, a long-run decline of *whom*, shifts in modal and *do*-support usage, and substantial lexical turnover and semantic drift driven by technology, empire, and social change. Spelling and punctuation have changed very little: Victorian orthography is essentially modern orthography.
+
+**Re-encoding profile.** Most changes involve small shifts in construction frequencies rather than restructuring of the grammar. The core inventory of English morphology (already highly analytic by Victorian times) has little left to lose; the dominant change is lexical and semantic. Phonological change in the interval (e.g., decline of rhoticity in prestige British English, continuing vowel shifts, the rise of Estuary-like features) is invisible in writing because the orthography does not track it.
+
+**Expected measurements.** We expect (H_A1) a small, low-variance cross-entropy gap for Victorian text under a modern model after controlling for named entities and topical vocabulary; (H_A2) that most of the residual gap is *lexical-semantic* rather than syntactic; and (H_A3) that semantic drift, estimated via diachronic word embeddings (Hamilton, Leskovec & Jurafsky 2016), is concentrated in polysemous, mid-frequency words, which are most prone to "false friend" misreadings (e.g., a Victorian *awful*, *nice*, or *artificial* read with its modern sense).
+
+**Main information-loss channel.** The critical loss is *pragmatic and cultural*: allusions, idioms, social codes, and period-specific referents. This is a loss of *shared context* (the side information the original decoder had), not of the code itself.
+
+## 4. Case Study B: Koine Greek → Modern Greek
+
+**Time baseline.** Δ ≈ 1,700–2,300 years, about 70–90 generations, roughly an order of magnitude longer than Case A.
+
+**What has changed (qualitatively).** The path from Koine to Modern Greek (via Byzantine and Medieval Greek) includes:
+
+- **Phonology:** loss of vowel length and of the ancient pitch accent in favour of stress accent; iotacism, in which η, ι, υ, ει, οι, υι merge to /i/; spirantisation of the voiced and aspirated stops; loss of initial /h/.
+- **Morphology:** loss of the dative (replaced by the genitive or prepositional phrases); loss of the infinitive (replaced by *να* + subjunctive); loss of the optative; simplification of verbal and nominal paradigms; development of periphrastic forms such as the future with *θα*.
+- **Syntax:** increased reliance on prepositions and fixed clause patterns; development of clitic systems and definite articles with expanded roles.
+- **Lexicon:** substantial turnover (e.g., many everyday words replaced by diminutive or borrowed forms), plus loans from Latin, Italian, Turkish, and other languages.
+
+**Re-encoding profile.** The overall trend is synthetic → analytic: information once carried in inflectional endings is increasingly carried in particles, prepositions, and syntax. This is the clearest empirical illustration of our *conservation-with-redistribution* hypothesis. The "loss" of the infinitive does not make Modern Greek unable to express purpose or complement relations; it re-encodes them at the clause level.
+
+**Orthography as an error-correcting code.** Greek spelling has remained historically conservative. Six distinct spellings of /i/ persist even though the sounds merged long ago. In channel terms, written Greek preserved the *source symbols* while the *acoustic channel* collapsed multiple symbols onto one. The orthography therefore stores information (etymology, morphological identity) that phonology no longer encodes, and it works as a redundancy code that allows the reader to disambiguate homophones (e.g., ι/η/υ/ει/οι) and to see morphological relationships. Spelling reform in 1982 (monotonic system) removed the polytonic accents, which were already redundant after the loss of pitch accent; this is a *lossless-for-the-modern-decoder, lossy-for-the-historian* compression.
+
+**Diglossia as an external correction term.** For much of the nineteenth and twentieth centuries, the purist register Katharevousa, a deliberate partial re-archaisation, coexisted with spoken Demotic Greek, and the Demotic became the official standard in 1976. In our model Katharevousa is a large, deliberate *ρ(t)* injection pulling written usage back toward ancient forms. Its decline reflects the cost of maintaining a correction term that diverges too far from the spoken source. Ecclesiastical use of Koine in the Orthodox liturgy is a second, continuous restoring channel.
+
+**Expected measurements.** We expect (H_B1) a large cross-entropy gap for Koine text under a Modern Greek model, with most of the gap *morpho-syntactic* rather than lexical; (H_B2) that, at the level of *content words and lemmas*, retention is substantially higher than the raw gap suggests, because high-frequency core vocabulary persists and the orthography preserves lemma identity; and (H_B3) that a model trained on Modern Greek *plus* a small amount of explicit ancient-form exposure (a proxy for schooling and liturgy) closes a disproportionate fraction of the gap, consistent with a strong external correction term.
+
+## 5. Comparative Analysis
+
+### 5.1 Time normalisation
+
+Raw comparison is misleading, since Case B spans roughly ten times the time of Case A. We therefore report degradation per century and, more informatively, fit the survival model *S(t)* of Section 2.5 to each pair. If both pairs share the same frequency–relaxation law, then differences in the fitted *ρ* (correction) and in the total divergence at matched elapsed time measure true differences in transmission fidelity.
+
+### 5.2 Illustrative toy calculation
+
+*The following uses assumed parameters for demonstration only and should not be read as empirical results.* Suppose the lexicon splits into three frequency classes with relaxation rates μ = 0.05, 0.3, and 1.0 per century and weights 0.2, 0.3, and 0.5. After 1.5 centuries the model predicts a retained fraction of about 0.2·0.93 + 0.3·0.64 + 0.5·0.22 ≈ 0.49. After 20 centuries it predicts about 0.2·0.37 + 0.3·0.0025 + 0.5·0 ≈ 0.075. The retained fraction in the long run is dominated entirely by the slowest class. The qualitative lesson: a language can lose most of its items over two millennia and still show a recognisable, high-frequency core, so the *shape* of the survival curve matters more than any single number.
+
+### 5.3 Where the two cases differ in mechanism
+
+| Dimension | Victorian → Modern English | Koine → Modern Greek |
+|---|---|---|
+| Elapsed time | ~1.5–1.9 centuries | ~17–23 centuries |
+| Dominant change | Lexical/semantic, small construction shifts | Phonology and morphology; synthetic → analytic |
+| Re-encoding | Minor | Pervasive |
+| Orthography | Essentially constant | Conservative, decoupled from sound |
+| External correction | Dictionaries, schooling, print canon | Katharevousa (historical), liturgy, schooling, conservative spelling |
+| Dominant lost information | Cultural context, allusion | Morphological detail, phonological contrasts |
+| Mutual intelligibility to modern reader | High | Partial; requires training |
+
+### 5.4 Interpretation
+
+Three conclusions follow from the framework.
+
+1. **Degradation is decoder-relative.** A modern English reader is a near-perfect decoder of Victorian English at the code level but a weak decoder at the cultural-context level. A modern Greek reader is a partial decoder of Koine at the code level but benefits from preserved orthography and liturgical exposure.
+2. **Much of Greek's "loss" is re-encoding.** Treating the disappearance of the dative or infinitive as pure information loss overstates degradation. The informative quantity is the *total* across levels.
+3. **Conservation mechanisms can outweigh time.** The correction term *ρ* (orthography, canon, liturgy, schooling) can, over millennia, matter as much as the elapsed time itself. This is why Greek, despite its long history, remains in a recognisable continuous lineage with its ancient forms.
+
+## 6. Proposed Methodology
+
+**Corpora.** For English: public-domain Victorian novels, periodicals, and parliamentary records (e.g., Project Gutenberg, digitised newspaper archives), versus contemporary British corpora (e.g., the British National Corpus and recent web/news text). For Greek: Koine texts (New Testament, Septuagint, papyri, Hellenistic prose) from open digital libraries such as Perseus and similar projects, versus modern Greek corpora (e.g., the Hellenic National Corpus, news, Wikipedia).
+
+**Measurements.**
+
+1. *Cross-entropy gap:* train character-level and subword models on era-*n* text; compute bits per character on held-out era-0 text; report as *D / h*.
+2. *Normalised compression distance:* between matched-topic samples of source and target eras.
+3. *Lemma-level retention:* using lemmatised, etymologically aligned word lists (e.g., Swadesh- or Leipzig–Jakarta-style core vocabularies), compute the fraction retained per frequency class.
+4. *Semantic drift:* train diachronic embeddings, align via orthogonal Procrustes, and compute cosine displacement per word.
+5. *Constructional redistribution:* annotate the frequency of key constructions (passive types, case marking, complement clause types) and test whether decreases at one level are offset by increases at another.
+6. *Correction ablation:* compare models trained with and without exposure to a "prestige/conservative" subcorpus (schooling, liturgy, literature) to estimate *ρ*.
+
+**Controls.** Match genre and topic; remove named entities; normalise for orthographic conventions and text length; and report confidence intervals via bootstrap over documents.
+
+## 7. Testable Predictions
+
+- **P1:** Normalised for time, Koine → Modern Greek shows *lower* per-century loss at the lemma level than Victorian → Modern English shows at the semantic level for matched frequency classes, because of orthographic and liturgical correction.
+- **P2:** Redistribution will be detectable: for each lost inflectional distinction in Greek, a measurable increase in the entropy of prepositional or particle choice.
+- **P3:** The survival curves for both languages will be better fit by mixtures of exponentials (or stretched exponentials) than by single exponentials.
+- **P4:** Removing orthographic information (transcribing both Koine and Modern Greek phonemically) will *increase* the apparent distance between them more than it will for the English pair.
+- **P5:** High-frequency items will show relaxation rates scaling approximately as *f^(−1/2)* in both languages, within error.
+
+## 8. Limitations
+
+The Markov assumption ignores language contact, which is substantial in Greek history (Latin, Slavic, Turkish, Romance) and increasingly in English. Written corpora are biased toward elite registers, so they underrepresent the vernacular that actually drives change; Koine papyri partially mitigate this for Greek. Corpus sizes differ by orders of magnitude between the two cases. Cross-entropy depends on model class and training data, so absolute values are not directly interpretable, only comparisons under matched conditions. The physics analogies are heuristic: language has no conserved energy or temperature, and *k_B T ln 2* is a metaphor for cognitive economy rather than a literal cost. Finally, "degradation" carries a normative connotation that linguists reject; we use it strictly as a technical term for decoder-relative information loss, not as a judgement that later stages are worse.
+
+## 9. Conclusion
+
+Information degradation across linguistic time is best understood not as simple decay but as a process of *decoder-relative loss, re-encoding between levels, and external correction*. Victorian → modern English is a short-baseline, low-restructuring case whose main losses are cultural and semantic. Koine → modern Greek is a long-baseline case with deep structural re-encoding, in which conservative orthography and liturgical and educational institutions act as powerful error-correcting codes. A time-normalised, corpus-based program, using the cross-entropy, compression, and survival measures proposed here, can test whether these qualitative claims hold quantitatively and can generalise to other lineages.
+
+## References
+
+*Provided from memory as pointers for the literature search; please verify details before citing.*
+
+- Bentley, R. A., Hahn, M. W., & Shennan, S. J. (2004). Random drift and culture change. *Proceedings of the Royal Society B*.
+- Browning, R. (1983). *Medieval and Modern Greek*. Cambridge University Press.
+- Cilibrasi, R., & Vitányi, P. (2005). Clustering by compression. *IEEE Transactions on Information Theory*.
+- Cover, T. M., & Thomas, J. A. *Elements of Information Theory*. Wiley.
+- Hamilton, W. L., Leskovec, J., & Jurafsky, D. (2016). Diachronic word embeddings reveal statistical laws of semantic change. *ACL*.
+- Horrocks, G. (2010). *Greek: A History of the Language and Its Speakers* (2nd ed.). Wiley-Blackwell.
+- Kirby, S., Cornish, H., & Smith, K. (2008). Cumulative cultural evolution in the laboratory: An experimental approach to the origins of structure in human language. *PNAS*.
+- Landauer, R. (1961). Irreversibility and heat generation in the computing process. *IBM Journal of Research and Development*.
+- Lieberman, E., Michel, J.-B., Jackson, J., Tang, T., & Nowak, M. A. (2007). Quantifying the evolutionary dynamics of language. *Nature*.
+- Michel, J.-B., et al. (2011). Quantitative analysis of culture using millions of digitized books. *Science*.
+- Pagel, M., Atkinson, Q. D., & Meade, A. (2007). Frequency of word-use predicts rates of lexical evolution throughout Indo-European history. *Nature*.
+- Piantadosi, S. T., Tily, H., & Gibson, E. (2011). Word lengths are optimized for efficient communication. *PNAS*.
+- Shannon, C. E. (1951). Prediction and entropy of printed English. *Bell System Technical Journal*.
+- Zipf, G. K. (1949). *Human Behavior and the Principle of Least Effort*. Addison-Wesley.
